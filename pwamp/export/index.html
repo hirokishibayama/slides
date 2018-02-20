@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>RevealJS : /Users/hiroki/workspace/reveal/reveal.js/pwamp/slides.md</title>
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+        
+       
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/Zenburn.css">
+
+        
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+          document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <style type="text/css">
+            @page {    
+              margin: 0;
+              size: auto; 
+            }
+        </style>
+
+        <script>
+         if(window.location.search.match( /print-pdf-now/gi )) {
+           window.print();
+         }
+      </script>
+
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section  data-markdown><script type="text/template">
+### PWAMPまとめ<br>（柴山による勝手な解釈）
+
+Hiroki Shibayama  
+2018/01/24
+</script></section><section  data-markdown><script type="text/template">
+### PWAとは？
+Progressive Web Apps
+「Webサイトを最適化すればネイティブアプリに匹敵するよ」という考え方、取り組みのこと
+
+### AMPとは？
+Accelerated Mobile Pages
+MobileのWebページを高速化するための手法
+
+### PWAMPとは？
+PWAとAMPの組み合わせ
+</script></section><section  data-markdown><script type="text/template">
+### PWA
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">PWA(Progressive Web Apps)</span>
+Progressive Enhancementを前提として下記を取り入れる
+* そもそものパフォーマンス向上
+* 最新のWeb APIの導入
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">[Progressive Enhancement](https://website-usability.info/2010/06/entry_100606.html)(1)</span>
+
+* より幅広く、多くの人が情報にアクセスできるようにすることを目指したWebサイトの開発理念（パソコンだけでなく、携帯電話やスマートフォン、支援技術など　や　障害、加齢、怪我、など）<br>
+* あらゆるユーザーに対して基本的な体験ができるようにして、リッチなJSやCSS等は、サポートしているブラウザではその価値を体感できるが、サポートされていないブラウザでは邪魔をしないようにする
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">[Progressive Enhancement](https://website-usability.info/2010/06/entry_100606.html)(2)</span>
+
+* HTMLが意味的に適切であること（セマンティックであること）、つまり、視覚的なレイアウトを外した状態でも意味が伝わることが大切.<br>
+* JavaScriptは控えめなJavaScript（Unobtrusive JavaScript）を推奨（JavaScriptをサポートしていないブラウザでは「何事もなかったかのように」存在感を消す）.
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">そもそものパフォーマンス向上(1)</span>
+* [RAIL](https://developers.google.com/web/fundamentals/performance/rail)
+* ユーザーを中心に考えるパフォーマンスモデル（response/animation/idle/load）
+* [評価指標](https://havelog.ayumusato.com/develop/performance/e744-performance_metrics.html)
+  * FP/Speed Index/FCP/FMP/TTI
+* 分析
+  * Lighthouse/Navigation Timing API/[CALIBRE](https://calibreapp.com/)/[SPEED CURVE](https://speedcurve.com/)/[BUNDLESIZE](https://github.com/siddharthkp/bundlesize)
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">[RAIL](https://developers.google.com/web/fundamentals/performance/rail)</span>
+* ユーザーを中心に考えるパフォーマンスモデル（response/animation/idle/load）
+* ユーザー満足感向上が第一（処理速度向上が目的ではない）
+* [遅延＆ユーザーの反応を整理（0〜16ms,0〜100ms,...）](https://developers.google.com/web/fundamentals/performance/rail)
+* Chrome DevToolsのTimelineツールでチェック
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">[RAIL](https://developers.google.com/web/fundamentals/performance/rail)(response, animation)</span>
+* response：ユーザーに対して即座に応答（ユーザー入力は100ms以内に認識）
+* [animation：アニメーションやスクロールでは10ms以内にフレームを生成](https://developers.google.com/web/fundamentals/performance/rendering/)
+  * 1sに60フレーム、ブラウザの描画も考えると使用できるのは10ms程度（そうしないとブラウザのリフレッシュレートに間に合わないので、画面上でコンテンツが震えて見えるジャンクが発生.）
+  * JavaScript/Style/Layout/Paint/Composite
+  * ラスタライズ
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">[RAIL](https://developers.google.com/web/fundamentals/performance/rail)(idle)</span>
+* idle：メインスレッドのアイドル時間を活用
+  * 遅延している作業を50ms程度のブロックにグループ化してアイドル中に実行
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">[RAIL](https://developers.google.com/web/fundamentals/performance/rail)(load)(1)</span>
+* load：ユーザー作業を妨げない（interactive contentsは1000ms以内に提供）
+  * サイトは1秒以内に読み込む
+  * [クリティカルレンダリングパス(CRP)の最適化](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/)
+    * HTML、CSS、JavaScript のバイトの受信から、これらをピクセルとしてレンダリングするために必要な処理までの中間段階で行われている内容を理解して最適化する.
+    * DOMツリー、CSSOMツリー、レンダリングツリー、layout(リフロー)、painting(ラスタライジング)
+    * 非レンダリングブロック(media type, media query)
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">[RAIL](https://developers.google.com/web/fundamentals/performance/rail)(load)(2)</span>
+* load：ユーザー作業を妨げない（interactive contentsは1000ms以内に提供）
+  * [クリティカルレンダリングパス(CRP)の最適化](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/)
+    * JavaScript を非同期(async指定)にして、クリティカル レンダリング パスから不要な JavaScript をすべて取り除く
+    * FP(First Paint, 「ナビゲーションの開始（白い画面の状態）から、Web ページの何らかが表示され始めたタイミング」の指標)の改善に有効
+  * 重要度の低い読み込みはidle状態まで延期
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">[評価指標](https://havelog.ayumusato.com/develop/performance/e744-performance_metrics.html)(1)</span>
+* FP(First Paint, 「ナビゲーションの開始（白い画面の状態）から、Web ページの何らかが表示され始めたタイミング」)
+* Speed Index(Web ページが表示される過程の進捗 ( Visual Progress ) とその速度を用いた指標、「Web ページのコンテンツがどれくらい速く表示されたかを表すスコア」)
+  * Resource Timing API
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">[評価指標](https://havelog.ayumusato.com/develop/performance/e744-performance_metrics.html)(2)</span>
+* FCP(First Contentful Paint、「ナビゲーションの開始から、Web ページのコンテンツが表示され始めたタイミング」、FPは表示されるのは何でもOKだがFCPはコンテンツとして意味のあるものが表示されたタイミング)
+  * Paint Timing API
+* FMP(First Meaningful Paint、「Web ページがユーザーにとって、意味がある（役に立つ）表示になったタイミング」)
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">[評価指標](https://havelog.ayumusato.com/develop/performance/e744-performance_metrics.html)(3)</span>
+* TTI(Time to Interactive、「Web ページのロードが終わって、ユーザーの入力に対して確実に応答できるタイミング」=RAILモデルにおける Idle の要件を満たす状態)
+  * Resource Timing API + Long Tasks API
+  * 5s以内がトレンド
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">そもそものパフォーマンス向上(2)</span>
+* テクニック
+  * [Resource Hints API](https://qiita.com/ryo_hisano/items/e525616e5026b015aafe)
+    * ブラウザに「次に必要となるリソースを教える」ことで、投機的な取得を行う API
+  * [App Shellモデル](https://developers.google.com/web/fundamentals/architecture/app-shell?hl=ja)
+  * SSR(Server Side Rendering)
+  * [PRPL](https://developers.google.com/web/fundamentals/performance/prpl-pattern/?hl=ja)
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">最新のWeb APIの導入(1)</span>
+* [A2HS](https://developers.google.com/web/fundamentals/app-install-banners/)
+  * アプリのインストールバナー. Manifestファイルを作成するだけで良い.
+* [ServiceWorker](https://developers.google.com/web/fundamentals/primers/service-workers/)
+  * オフライン体験+バックグラウンド同期+プッシュ通知などのnativeアプリ機能を実現する技術. cacheの利用と各イベントのinterceptが肝.
+* [Push Notification](https://developers.google.com/web/fundamentals/codelabs/push-notifications/)
+* [Indexed DB (/localStorage/sessionStorage)](https://qiita.com/kosukehorai/items/4553cc356a316c7a9235)
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">最新のWeb APIの導入(2)</span>
+* [Credential Management API](https://developers.google.com/web/fundamentals/security/credential-management/?hl=ja)
+* [Payment Request API](https://developers.google.com/web/updates/2016/07/payment-request?hl=ja)
+* [Geolocation API](https://developers.google.com/web/fundamentals/native-hardware/user-location/?hl=ja)
+* [History API](https://liginc.co.jp/web/js/other-js/162559)
+<br>etc
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">PWAの効果</span>
+* そもそものパフォーマンス向上
+  * 読み込み、表示が速い.
+* 最新のWeb APIの導入
+  * native likeな体験.
+    * install不要、審査不要、web/nativeで個別開発不要
+    * オフライン体験、push notification、バックグラウンド同期...
+</script></section><section  data-markdown><script type="text/template">
+### AMP
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">[AMP(Accelerated Mobile Pages)](https://knowledge.sakura.ad.jp/7443/)</span>
+GoogleとTwitterが共同してOSSプロジェクトとして立ち上げた手法. [AMP HTMLというフレームワーク](https://www.ampproject.org/ja/)を指す場合もある.
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">AMPの構成要素と制約(1)</span>
+* AMP HTML：表示高速化のための制約つきHTML
+  * 特定のタグ、要素が必須、いくつかのタグ、属性、CSSプロパティは使用不可.
+  * img/vide/audio/iframeは専用タグ.
+  * CSSは分離不可.
+  * SVGに制限あり、カスタムフォントは４つのみ...
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">AMPの構成要素と制約(2)</span>
+* AMP JS：高速にコンテンツをロードするためのJS
+  * AMPに対応したページでは、画像や動画、インラインフレーム（iframe）といったコンテンツロードはすべてAMP JSが管理する仕組み.
+  * AMP JS以外のJSは基本的にNG. 動的にサイズが変わるのもNG. iframe内であれば自由に（ただしAMPの恩恵なく）JSを利用することが可能.
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">AMPの構成要素と制約(3)</span>
+* AMP Cache：コンテンツのキャッシュ配信を行う
+* その他
+  * 広告配信にも多数対応. 
+  * JSON-LD（siteの構造化データを検索エンジンに通知, schema.orgで形式指定）が必須.
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">AMPの効果</span>
+* AMP HTML：表示高速化のための制約つきHTML
+  * ページ表示が速い.
+  * データ通信が少ない.
+  * SEOへの効果.
+</script></section><section  data-markdown><script type="text/template">
+### PWAMP
+= PWA + AMP
+
+>>>
+
+<!-- .slide: data-background="#339966" -->
+#### <span id="custom_white">PWAMP</span>
+* AMP as PWA：全体的にAMPなので高速だが制約あり（AMPなので）
+* AMP to PWA：AMPなのは最初だけ
+* AMP in PWA：一部AMPなのでやや制約あり. AMP効果は限定的.
+<br>etc</script></section></div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            function extend() {
+              var target = {};
+              for (var i = 0; i < arguments.length; i++) {
+                var source = arguments[i];
+                for (var key in source) {
+                  if (source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+              return target;
+            }
+            // Optional libraries used to extend on reveal.js
+            var deps = [
+              { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+              { src: 'plugin/math/math.js', async: true }
+            ];
+            // default options to init reveal.js
+            var defaultOptions = {
+              controls: true,
+              progress: true,
+              history: true,
+              center: true,
+              transition: 'default',
+              dependencies: deps
+            };
+            // options from URL query string
+            var queryOptions = Reveal.getQueryHash() || {};
+            var options = {
+  "notesSeparator": "note:",
+  "separator": "^[\r\n?|\n]---[\r\n?|\n]$",
+  "verticalSeparator": "^[\r\n?|\n]--[\r\n?|\n]$",
+  "theme": "black",
+  "highlightTheme": "Zenburn",
+  "controls": true,
+  "progress": true,
+  "slideNumber": false,
+  "history": true,
+  "keyboard": true,
+  "overview": true,
+  "center": true,
+  "touch": true,
+  "loop": false,
+  "rtl": false,
+  "shuffle": false,
+  "fragments": true,
+  "embedded": false,
+  "help": true,
+  "showNotes": false,
+  "autoSlide": 0,
+  "autoSlideStoppable": true,
+  "mouseWheel": false,
+  "hideAddressBar": true,
+  "previewLinks": false,
+  "transition": "default",
+  "transitionSpeed": "default",
+  "backgroundTransition": "default",
+  "viewDistance": 3,
+  "parallaxBackgroundImage": "",
+  "parallaxBackgroundSize": "",
+  "parallaxBackgroundHorizontal": null,
+  "parallaxBackgroundVertical": null,
+  "attributes": ""
+};
+            options = extend(defaultOptions, options, queryOptions);
+            Reveal.initialize(options);
+
+        </script>
+        
+    </body>
+</html>

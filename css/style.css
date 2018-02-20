@@ -1,0 +1,79 @@
+.reveal {
+    font-family: 'JK-Gothic-L';
+    color: rgb(243, 235, 224);
+}
+.reveal p, .reveal li {
+    text-align: left;
+    font-family: 'JK-Gothic-L';
+    font-size: 20pt;
+    color: rgb(243, 235, 224);
+ }
+ .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+    font-family: 'JK-Gothic-L';
+    color: rgb(181, 217, 142);
+}
+ .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+     text-transform: none;
+ }
+.reveal h5, .reveal h6 {
+    font-family: 'JK-Gothic-L';
+    color: rgb(208, 192, 211);
+    font-size: 22pt;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+    margin: 0;
+}
+.reveal strong {
+    color: rgb(255, 171, 164);
+    font-size: 24pt;
+}
+ body {
+     background-color: rgb(116,82, 152);
+ }
+ .reveal .controls .controls-arrow:before, .reveal .controls .controls-arrow:after {
+     background-color: rgb(181, 217, 142);
+ }
+
+
+#title-footer
+{
+    font-family: 'JK-Gothic-L';
+    color: rgb(243, 235, 224);
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 90%;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    height: 15vh;
+    background-color: rgb(65, 58, 86);
+    text-align: left;
+    font-size: 18pt;
+}
+div.progress {
+    visibility: hidden;
+}
+div.progress[style="display: block;"] ~ footer:last-of-type#title-footer {
+    bottom: 0px;
+}
+.reveal .has-light-background {
+  color: rgb(65, 58, 86);
+}
+.reveal .has-light-background h1,
+.reveal .has-light-background h2,
+.reveal .has-light-background h3,
+.reveal .has-light-background h4 {
+  color: rgb(116,82, 152);
+}
+.reveal .has-light-background h5,
+.reveal .has-light-background h6 {
+  color: rgb(65, 58, 86);
+}
+.reveal .has-light-background p,
+.reveal .has-light-background li {
+  color: rgb(65, 58, 86);
+}
+.reveal .has-light-background strong {
+  color: rgb(116,82, 152);
+  font-size: 24pt;
+}
